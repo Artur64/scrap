@@ -15,14 +15,14 @@ defmodule Scrap do
       iex> url = "www.google.com"
       iex> Scrapper.fetch(url)
       {:ok,
-  %Scrapper{
-   assets: ["http://www.google.com/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png",
-    "http://www.google.com/textinputassistant/tia.png"],
-   links: ["http://www.google.com/imghp?hl=en&tab=wi",
-    "http://maps.google.com/maps?hl=en&tab=wl",
-   ...
-   ]
-  }}
+          %Scrapper{
+           assets: ["http://www.google.com/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png",
+            "http://www.google.com/textinputassistant/tia.png"],
+           links: ["http://www.google.com/imghp?hl=en&tab=wi",
+            "http://maps.google.com/maps?hl=en&tab=wl",
+           ...
+           ]
+      }}
   """
   def fetch(urls, opts \\ [])
 
@@ -39,14 +39,14 @@ defmodule Scrap do
       iex> urls = ["www.google.com", "youtube.com"]
       iex> Scrapper.fetch(urls)
       [
-  error: "Error, server returned unexpected 301 status code",
-  ok: %Scrapper{
-   assets: ["http://www.google.com/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png",
-    "http://www.google.com/textinputassistant/tia.png"],
-   links: ["http://www.google.com/imghp?hl=en&tab=wi",
-    "http://maps.google.com/maps?hl=en&tab=wl",
-   ...
-   ]}
+       error: "Error, server returned unexpected 301 status code",
+       ok: %Scrapper{
+        assets: ["http://www.google.com/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png",
+         "http://www.google.com/textinputassistant/tia.png"],
+        links: ["http://www.google.com/imghp?hl=en&tab=wi",
+         "http://maps.google.com/maps?hl=en&tab=wl",
+        ...
+        ]}
      ]
   """
   def fetch(urls, opts) when is_list(urls) do
@@ -123,7 +123,6 @@ defmodule Scrap do
   end
 
   defp validate_url(url) do
-    # processed_url = HTTPoison.process_request_url(url)
     case URI.parse(url) do
       %{host: host} ->
         case :inet.gethostbyname(to_charlist(host)) do
@@ -140,7 +139,7 @@ defmodule Scrap do
     end
   end
 
-  # Some websites, like github are "hiding" source path of images, so they will be threated as they are - empty strings 
+  # Some websites, like github are "hiding" source path of images, so they will be threated as they are - empty strings
   defp final_process(<<>>, _opts) do
     ""
   end
